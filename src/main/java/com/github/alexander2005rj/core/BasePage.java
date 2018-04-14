@@ -21,8 +21,12 @@ public class BasePage {
 	
 	/******** Botões ********/
 	
+	public void clicarNoBotao( By by ) {
+		createDriver().findElement( by ).click();
+	}
+	
 	public void clicarNoBotao( String id_botao ) {
-		createDriver().findElement( By.id( id_botao ) ).click();
+		clicarNoBotao( By.id( id_botao ) );
 	}
 	
 	/******** Links ********/

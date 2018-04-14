@@ -1,6 +1,9 @@
 package com.github.alexander2005rj.pages;
 
+import org.openqa.selenium.By;
+
 import com.github.alexander2005rj.core.BasePage;
+
 
 public class TasksPage extends BasePage {
 	
@@ -41,14 +44,16 @@ public class TasksPage extends BasePage {
 	}
 	
 	public void save() {
-		
+		clicarNoBotao( "SAVE" );
 	}
 	
 	public void cancel() {
-		
+		clicarNoBotao( "CANCEL" );
 	}
 	
 	public void closeAndCreateNew() {
-		
+		clicarNoBotao( By.xpath( "//input[@title='Close and Create New']" ) );
 	}
+	
+	
 }
