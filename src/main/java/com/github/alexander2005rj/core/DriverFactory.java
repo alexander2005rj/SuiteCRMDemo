@@ -5,13 +5,18 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 
 
 public class DriverFactory {
-private static WebDriver driver;
+	
+	private static WebDriver driver;
 	
 	private DriverFactory() {}
 	
+	// ATENÇÃO ==> Tentar trabalhar com HEADLESS antes de enviar
+	
 	public static WebDriver createDriver() {
-		driver = new FirefoxDriver();
-		driver.manage().window().maximize();;
+		if ( driver == null ) {
+			driver = new FirefoxDriver();
+			driver.manage().window().maximize();;
+		}
 		return driver;
 	}
 	

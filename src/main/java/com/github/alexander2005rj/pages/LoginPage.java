@@ -17,7 +17,7 @@ public class LoginPage extends BasePage {
 	}
 	
 	public void entrar() {
-		clicarBotao( "bigbutton" );
+		clicarNoBotao( "bigbutton" );
 	}
 	
 	public void logar( String usuario, String senha ) {

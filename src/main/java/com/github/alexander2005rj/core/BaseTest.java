@@ -21,9 +21,8 @@ public class BaseTest {
 	
 	private LoginPage loginPage = new LoginPage();
 	
-	
 	@Rule
-	public TestName testName = new TestName();
+	public TestName nomeDoTeste = new TestName();
 	
 	
 	@Before
@@ -32,7 +31,11 @@ public class BaseTest {
 	}
 	
 	@After
-	public void tearDrop() {
+	public void tearDrop() throws IOException {
+		
+		File arquivo = ( (TakesScreenshot) createDriver() ).getScreenshotAs( OutputType.FILE ) ;
+		FileUtils.copyFile( arquivo, new File( "screenshots" + File.separator + "screenshot" + File.separator + nomeDoTeste.getMethodName() + ".png") );
+		
 		destroyDriver();
 	}
 	

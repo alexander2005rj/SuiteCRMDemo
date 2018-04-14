@@ -15,13 +15,25 @@ public class BasePage {
 	/******** Inputs ********/
 	
 	public void inserir( String id_campo, String texto ) {
-		createDriver().findElement(By.id(id_campo) ).clear();
-		createDriver().findElement( By.id(id_campo) ).sendKeys( "texto" );;
+		createDriver().findElement( By.id( id_campo ) ).clear();
+		createDriver().findElement( By.id( id_campo ) ).sendKeys( "texto" );;
 	}
 	
 	/******** Botões ********/
 	
-	public void clicarBotao( String id_botao ) {
-		createDriver().findElement( By.id(id_botao) ).click();
+	public void clicarNoBotao( String id_botao ) {
+		createDriver().findElement( By.id( id_botao ) ).click();
 	}
+	
+	/******** Links ********/
+	
+	public void clicarNoLink( By by ) {
+		createDriver().findElement( by ).click();
+	}
+	
+	public void clicarNoLink( String link ) {
+		clicarNoLink( By.linkText( link ) );
+	}
+	
+	
 }
