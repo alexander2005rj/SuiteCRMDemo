@@ -1,6 +1,7 @@
 package com.github.alexander2005rj.tests;
 
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.github.alexander2005rj.core.BaseTest;
@@ -14,6 +15,7 @@ public class TasksTest extends BaseTest {
 	private TasksPage taskPage = new TasksPage();
 	
 	@Test
+	@Ignore // ==> Retirar o @Ignore!
 	public void testCadastrarTask() throws InterruptedException {
 		menuPage.acessarTasks();
 		taskPage.createTask();
@@ -38,49 +40,88 @@ public class TasksTest extends BaseTest {
 		Assert.assertEquals( taskPage.obterTextoTaskCadastrada(), assunto.toUpperCase() );
 	}
 	
+	
+	@Test
+	@Ignore // ==> Retirar o @Ignore!
+	public void testCamposObrigatorios() throws InterruptedException {
+		menuPage.acessarTasks();
+		taskPage.createTask();
+		
+		taskPage.save();
+		
+		String msgErro = taskPage.obterMensagemDeErro( ".//div[@type='name']/div" );
+		
+		Assert.assertEquals( "Missing required field: Subject" , msgErro );
+		
+		taskPage.cancel();
+	}
+	
+	
+	@Test
+	@Ignore // ==> Retirar o @Ignore!
+	public void testDatasComFormatoIncorreto() throws InterruptedException {
+		menuPage.acessarTasks();
+		taskPage.createTask();
+		
+		taskPage.setSubject( "Testando datas com formato incorreto!" );
+		taskPage.setStartDate( "1985/10/23", "07", "00" );
+		taskPage.setDueDate( "23-10-1985", "11", "30" );
+		
+		taskPage.save();
+		
+		String msgErroStartDate = taskPage.obterMensagemDeErro( ".//div[.='Invalid Value: Start Date']" );
+		String msgErroDueDate = taskPage.obterMensagemDeErro( ".//div[.='Invalid Value: Due Date']" );
+		
+		Assert.assertEquals( "Invalid Value: Start Date", msgErroStartDate );
+		Assert.assertEquals( "Invalid Value: Due Date", msgErroDueDate );
+		
+		taskPage.cancel();
+	}
+	
+	
+	
+	@Test
+	public void testFecharECriarUmaNovaTask() throws InterruptedException {
+		menuPage.acessarTasks();
+		taskPage.createTask();
+		
+		
+	}
+	
 	/*
 	@Test
-	public void testCamposObrigatorios() {
-	
-		// xpath para mensagem Subject ==> .//div[@type='name']/div
-		// mensagem ==> Missing required field: Subject 
-		
-	}
-	
-	
-	@Test
-	public void testCancelarCadastro() {
-		
-	}
-	
-	@Test
-	public void testFecharECriarUmaNovaTask() {
-		
-	}
-	
-	@Test
-	public void testAlterarTask() {
+	public void testAlterarTask() throws InterruptedException {
 		menuPage.acessarTasks();
 		taskPage.viewTask();
 		
+		// Selecionar linha da tabela para alteração / exclusão
+		// .//tr[x]//input[@class='listview-checkbox']
 		
 	}
 	
 	
 	@Test
-	public void testExcluirTask() {
+	public void testExcluirTask() throws InterruptedException {
 		menuPage.acessarTasks();
 		taskPage.viewTask();
 				
+			
+		// Selecionar linha da tabela para alteração / exclusão
+		// .//tr[x]//input[@class='listview-checkbox']
+		
 	}
 	
 	@Test 
-	public void testExcluirTasksPaginacao() {
+	public void testExcluirTasksPaginacao() throws InterruptedException {
+		menuPage.acessarTasks();
+		
 		
 	}
 	
 	@Test
-	public void testDesistirExclusao() {
+	public void testDesistirExclusao() throws InterruptedException {
+		menuPage.acessarTasks();
+		
 		
 	}
 	*/

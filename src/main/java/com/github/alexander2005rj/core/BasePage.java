@@ -4,6 +4,7 @@ import static com.github.alexander2005rj.core.DriverFactory.createDriver;
 
 import java.util.concurrent.TimeUnit;
 
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -20,12 +21,14 @@ public class BasePage {
 		terminarEsperaImplicita();
 	}
 	
+	
 	/******** Inputs e Textareas ********/
 	
 	public void inserir( String id_campo, String texto ) {
 		//createDriver().findElement( By.id( id_campo ) ).clear();
 		createDriver().findElement( By.id( id_campo ) ).sendKeys( texto );;
 	}
+	
 	
 	/******** Botões ********/
 	
@@ -36,6 +39,7 @@ public class BasePage {
 	public void clicarNoBotao( String id_botao ) {
 		clicarNoBotao( By.id( id_botao ) );
 	}
+	
 	
 	/******** Links ********/
 	
@@ -51,6 +55,7 @@ public class BasePage {
 		clicarNoLink( By.id( id_link ) );
 	}
 	
+	
 	/******** Combos ********/
 	
 	public void selecionarOpcao( String id_combo, String valorCombo ) {
@@ -64,6 +69,7 @@ public class BasePage {
 		Select combo = new Select( element );
 		combo.deselectByVisibleText(  valorCombo  );
 	}
+	
 	
 	/******** Sincronismo (Esperas) ********/
 	
@@ -80,12 +86,22 @@ public class BasePage {
 		wait.until( ExpectedConditions.presenceOfElementLocated( by ));
 	}
 
-	/******** Retorna valor de campos ********/
+	
+	/******** Outros ********/
 	
 	public String retornarTexto( By by ) {
 		return createDriver().findElement( by ).getText();
-				//.getAttribute( valor );
 	}
+	
+	/******** Alertas ********/
+	public void alertaAceitar() {
+		Alert alerta = createDriver().switchTo().alert();
+		alerta.accept();
+	}
+	
+
+	
+	/******** Tabelas ********/
 	
 	
 }

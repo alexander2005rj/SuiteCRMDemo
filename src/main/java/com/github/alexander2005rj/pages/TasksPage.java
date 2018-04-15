@@ -81,14 +81,18 @@ public class TasksPage extends BasePage {
 	}
 	
 	public void save() {
+		esperarPelaPresençaDe( By.id( "SAVE" ));
 		clicarNoBotao( "SAVE" );
 	}
 	
 	public void cancel() {
+		esperarPelaPresençaDe( By.id( "CANCEL" ) );
 		clicarNoBotao( "CANCEL" );
+		alertaAceitar();
 	}
 	
 	public void closeAndCreateNew() {
+		esperarPelaPresençaDe( By.xpath( "//input[@title='Close and Create New']" ) );
 		clicarNoBotao( By.xpath( "//input[@title='Close and Create New']" ) );
 	}
 	
@@ -97,5 +101,7 @@ public class TasksPage extends BasePage {
 		return retornarTexto( By.xpath( ".//h2[@class='module-title-text']" ) );
 	}
 	
-	
+	public String obterMensagemDeErro( String xpathMensagem ) {
+		return retornarTexto( By.xpath( xpathMensagem ) );
+	}
 }
