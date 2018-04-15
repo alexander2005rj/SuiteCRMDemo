@@ -79,5 +79,13 @@ public class BasePage {
 		WebDriverWait wait = new WebDriverWait( createDriver(), 5 );
 		wait.until( ExpectedConditions.presenceOfElementLocated( by ));
 	}
+
+	/******** Retorna valor de campos ********/
+	
+	public String retornarTexto( By by ) {
+		return createDriver().findElement( by ).getText();
+				//.getAttribute( valor );
+	}
+	
 	
 }

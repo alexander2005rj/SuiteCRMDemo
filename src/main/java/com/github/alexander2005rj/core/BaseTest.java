@@ -34,7 +34,7 @@ public class BaseTest {
 	public void tearDrop() throws IOException {
 		
 		File arquivo = ( (TakesScreenshot) createDriver() ).getScreenshotAs( OutputType.FILE ) ;
-		FileUtils.copyFile( arquivo, new File( "screenshot" + File.separator + nomeDoTeste.getMethodName() + ".png") );
+		FileUtils.copyFile( arquivo, new File( "screenshots" + File.separator + nomeDoTeste.getMethodName() + ".png") );
 		
 		destroyDriver();
 	}
