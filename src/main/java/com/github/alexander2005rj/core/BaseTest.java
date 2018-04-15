@@ -34,23 +34,9 @@ public class BaseTest {
 	public void tearDrop() throws IOException {
 		
 		File arquivo = ( (TakesScreenshot) createDriver() ).getScreenshotAs( OutputType.FILE ) ;
-		FileUtils.copyFile( arquivo, new File( "screenshots" + File.separator + "screenshot" + File.separator + nomeDoTeste.getMethodName() + ".png") );
+		FileUtils.copyFile( arquivo, new File( "screenshot" + File.separator + nomeDoTeste.getMethodName() + ".png") );
 		
 		destroyDriver();
 	}
 	
-	
-	/*
-	@After
-	public void finaliza() throws IOException{
-		TakesScreenshot screen = (TakesScreenshot) createDriver();
-		File arquivo = screen.getScreenshotAs(OutputType.FILE);
-		FileUtils.copyFile( arquivo, new File( "target" + File.separator + "screenshot" + File.separator + testName.getMethodName() + ".png") );
-	
-		
-		if ( Propriedades.FECHAR_BROWSER ) {
-			destroyDriver();
-		
-	}
-	*/
 }

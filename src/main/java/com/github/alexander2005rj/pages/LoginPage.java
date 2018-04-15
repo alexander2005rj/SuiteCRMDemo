@@ -5,7 +5,7 @@ import com.github.alexander2005rj.core.BasePage;
 public class LoginPage extends BasePage {
 	
 	public void acessarPaginaLogin() {
-		acessarURL( "https://demo.suiteondemand.com/index.php?module=Users&action=Login" );
+		acessarURL( "https://demo.suiteondemand.com/" );
 	}
 	
 	public void setUsuario( String usuario ) {

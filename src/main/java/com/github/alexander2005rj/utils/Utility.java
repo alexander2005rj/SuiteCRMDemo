@@ -1,6 +1,6 @@
 package com.github.alexander2005rj.utils;
 
-public class UtilsClass {
+public class Utility {
 	
 	
 	public static int sortearNumeroMenorQue(int valor) {
