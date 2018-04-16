@@ -1,5 +1,7 @@
 package com.github.alexander2005rj.tests;
 
+import java.util.List;
+
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -50,9 +52,7 @@ public class TasksTest extends BaseTest {
 		
 		taskPage.save();
 		
-		String msgErro = taskPage.obterMensagemDeErro( ".//div[@type='name']/div" );
-		
-		Assert.assertEquals( "Missing required field: Subject" , msgErro );
+		Assert.assertEquals( "Missing required field: Subject" , taskPage.obterMensagemDeErro() );
 		
 		taskPage.cancel();
 	}
@@ -70,11 +70,8 @@ public class TasksTest extends BaseTest {
 		
 		taskPage.save();
 		
-		String msgErroStartDate = taskPage.obterMensagemDeErro( ".//div[.='Invalid Value: Start Date']" );
-		String msgErroDueDate = taskPage.obterMensagemDeErro( ".//div[.='Invalid Value: Due Date']" );
-		
-		Assert.assertEquals( "Invalid Value: Start Date", msgErroStartDate );
-		Assert.assertEquals( "Invalid Value: Due Date", msgErroDueDate );
+		Assert.assertEquals( "Invalid Value: Start Date", taskPage.obterErroDataInicio() );
+		Assert.assertEquals( "Invalid Value: Due Date", taskPage.obterErroDataVencimento() );
 		
 		taskPage.cancel();
 	}
@@ -97,8 +94,6 @@ public class TasksTest extends BaseTest {
 		
 		taskPage.closeAndCreateNew();
 		
-		System.out.println( assunto );
-		
 		// taskPage.viewTasks();
 		
 		// Assert.assertEquals( assunto, taskPage.buscarSubjectNaTabela( assunto ) ); 
@@ -117,28 +112,35 @@ public class TasksTest extends BaseTest {
 	*/
 	
 	@Test
-	public void testExcluirTask() {
+	public void testExcluirTask() throws InterruptedException {
 		menuPage.acessarTasks();
+					
+		List<String> listaContato = taskPage.selecionarRegistroDaTabela( Utility.sortearNumeroMenorQue( 21 )  );
+		String assunto = listaContato.get( 0 );
+		String contato = listaContato.get( 1 );
+		System.out.println( assunto + " - " + contato );
 		
-		int numAleatorio = Utility.sortearNumeroMenorQue( 21 );
+		taskPage.excluirRegistroDaTabela();
 		
-		taskPage.selecionarRegistroDaTabela( ".//tr[" + numAleatorio + "]//input[@class='listview-checkbox']" );
+		Thread.sleep( 1000 ); 
 		
-		// taskPage.excluirRegistroDaTabela();
-		
-		// Selecionar linha da tabela para alteração / exclusão
-		// .//tr[x]//input[@class='listview-checkbox']
-		
-		
+		System.out.println( taskPage.buscarInfoNaTabela( assunto ) + " === "  +  taskPage.buscarInfoNaTabela( contato ) );
 	}
 	
 	
-	/*	
+		
 	@Test
+	@Ignore // ==> Retirar o @Ignore!
 	public void testDesistirExclusao() {
 		menuPage.acessarTasks();
+					
+		List<String> listaContato = taskPage.selecionarRegistroDaTabela( Utility.sortearNumeroMenorQue( 21 )  );
+		String assunto = listaContato.get( 0 );
+		String contato = listaContato.get( 1 );
 		
-		
+		taskPage.desistirExclusao();
+		Assert.assertEquals( assunto, taskPage.buscarInfoNaTabela( assunto ) );
+		Assert.assertEquals( contato , taskPage.buscarInfoNaTabela( contato ) );
 	}
-	*/
+	
 }

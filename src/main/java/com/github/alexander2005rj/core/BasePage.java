@@ -86,12 +86,12 @@ public class BasePage {
 	}
 	
 	public void esperarPelaPresencaDe(By by) {
-		WebDriverWait wait = new WebDriverWait( createDriver(), 10 );
+		WebDriverWait wait = new WebDriverWait( createDriver(), 15 );
 		wait.until( ExpectedConditions.presenceOfElementLocated( by ) );
 	}
 	
 	public void esperarElementoClicavel( By by ) {
-		WebDriverWait wait = new WebDriverWait( createDriver(), 10 );
+		WebDriverWait wait = new WebDriverWait( createDriver(), 15 );
 		wait.until( ExpectedConditions.elementToBeClickable( by ) );
 	}
 
@@ -109,6 +109,11 @@ public class BasePage {
 		alerta.accept();
 	}
 	
+	public void alertaDesistir() {
+		Alert alerta = createDriver().switchTo().alert();
+		alerta.dismiss();
+	}
+	
 
 	
 	/******** Tabelas ********/
@@ -122,6 +127,11 @@ public class BasePage {
 		createDriver().findElement( by ).click();		
 	}
 	
+	public String obterTextoTabela( By by ) {
+		return createDriver().findElement( by ).getText();
+	}
+	
+		
 	/******** Checkboxes ********/
 	
 	public void clicarCheck( By by ) {

@@ -1,5 +1,8 @@
 package com.github.alexander2005rj.pages;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.openqa.selenium.By;
 
 import com.github.alexander2005rj.core.BasePage;
@@ -9,16 +12,21 @@ public class TasksPage extends BasePage {
 	
 	public void createTask() {
 		esperarPelaPresencaDe( By.xpath( ".//a[@data-action-name='Create']" ) );
-		// comecarEsperaImplicita( 5 );
 		clicarNoLink( By.xpath( ".//a[@data-action-name='Create']" ) );
-		//terminarEsperaImplicita();
 	}
 	
 	public void viewTasks() {
 		esperarPelaPresencaDe( By.xpath( ".//a[@data-action-name='List']" ) );
-		// comecarEsperaImplicita( 5 );
+		esperarElementoClicavel( By.xpath( ".//a[@data-action-name='List']" ) );
 		clicarNoLink( By.xpath( ".//a[@data-action-name='List']" ) );
-		// terminarEsperaImplicita();
+		carregarTabela( By.xpath( ".//table[@class='list view table-responsive']" ) );
+	}
+	
+	public void carregandoTabela() {
+		carregarTabela( By.xpath( ".//table[@class='list view table-responsive']" ) );
+		
+		esperarPelaPresencaDe( By.id( "actionLinkTop" ));
+		esperarElementoClicavel( By.id( "actionLinkTop" ));
 	}
 	
 	public void setSubject( String assunto ) {
@@ -108,18 +116,26 @@ public class TasksPage extends BasePage {
 		return retornarTexto( By.xpath( ".//h2[@class='module-title-text']" ) );
 	}
 	
-	public String obterMensagemDeErro( String xpathMensagem ) {
-		return retornarTexto( By.xpath( xpathMensagem ) );
+	public String obterMensagemDeErro() {
+		return retornarTexto( By.xpath( ".//div[@type='name']/div" ) );
 	}
 	
-	public String buscarSubjectNaTabela( String assunto ) {
+	public String obterErroDataInicio() {
+		return retornarTexto( By.xpath( ".//div[.='Invalid Value: Start Date']" ) );
+	}
+	
+	public String obterErroDataVencimento() {
+		return retornarTexto( By.xpath( ".//div[.='Invalid Value: Due Date']" ) );
+	}
+	
+	
+	public String buscarInfoNaTabela( String info ) {
 		carregarTabela( By.xpath( ".//table[@class='list view table-responsive']" ) );
 		
-		esperarPelaPresencaDe( By.xpath( ".//a[contains(text(),'" + assunto + "')]" ) );
-		return retornarTexto( By.xpath( ".//a[contains(text(),'" + assunto + "')]" ) );
+		esperarPelaPresencaDe( By.xpath( ".//a[contains(text(),'" + info + "')]" ) );
+		return retornarTexto( By.xpath( ".//a[contains(text(),'" + info + "')]" ) );
 	}
-	
-	
+		
 	public void editarRegistroDaTabela( String xpathEditar ) {
 		carregarTabela( By.xpath( ".//table[@class='list view table-responsive']" ) );
 		
@@ -127,28 +143,56 @@ public class TasksPage extends BasePage {
 		selecionarAcaoNaTabela( By.xpath( xpathEditar ) );
 	}
 	
-	public void selecionarRegistroDaTabela( String xpathRegistro ) {
+	public List<String> selecionarRegistroDaTabela( int numAleatorio ) {
 		carregarTabela( By.xpath( ".//table[@class='list view table-responsive']" ) );
 		
-		esperarPelaPresencaDe( By.xpath( xpathRegistro ) );
-		esperarElementoClicavel( By.xpath( xpathRegistro ) );
-		clicarCheck( By.xpath( xpathRegistro ) );
+		esperarPelaPresencaDe( By.xpath( ".//tr[" + numAleatorio + "]//input[@class='listview-checkbox']" ) );
+		esperarElementoClicavel( By.xpath( ".//tr[" + numAleatorio + "]//input[@class='listview-checkbox']" ) );
+		
+		String assunto = obterTextoTabela( By.xpath( ".//tr[" + numAleatorio + "]//td[@type='name']//a" ) );
+		String contato = obterTextoTabela( By.xpath( ".//tr[" + numAleatorio + "]//td[@type='relate']//a" ) );
+		
+		List<String> listaContato = new ArrayList<String>();
+		listaContato.add(assunto);
+		listaContato.add(contato);
+		
+		clicarCheck( By.xpath( ".//tr[" + numAleatorio + "]//input[@class='listview-checkbox']" ) );
+		
+		return listaContato;
 	}
 	
-	public void excluirRegistroDaTabela() {
+	
+	public void selecionarBulkAction() {
 		carregarTabela( By.xpath( ".//table[@class='list view table-responsive']" ) );
 		
 		esperarPelaPresencaDe( By.id( "actionLinkTop" ));
 		esperarElementoClicavel( By.id( "actionLinkTop" ));
-		
-		esperarPelaPresencaDe( By.id( "subnav ddopen" ));
-		esperarElementoClicavel( By.id( "subnav ddopen" ));
-		
-		esperarPelaPresencaDe( By.id( "delete_listview_top" ));
-		esperarElementoClicavel( By.id( "delete_listview_top" ) );
-		clicarNoLink( By.id( "delete_listview_top" ) );
-		
-		alertaAceitar();
 	}
 	
+	public void selecionarAcaoExclusao() {
+		selecionarBulkAction();
+				
+		esperarPelaPresencaDe( By.id( "delete_listview_top" ));
+		esperarElementoClicavel( By.id( "delete_listview_top" ));
+		clicarNoLinkPorId( "delete_listview_top" );
+		
+		esperarPelaPresencaDe( By.xpath( ".//a[.='Delete']" ) );
+		esperarElementoClicavel( By.xpath( ".//a[.='Delete']" ) );
+		clicarNoLink( By.xpath( ".//a[.='Delete']" ) );
+	}
+	
+	public void excluirRegistroDaTabela() {
+		selecionarAcaoExclusao();
+		comecarEsperaImplicita( 2 );
+		alertaAceitar();
+		terminarEsperaImplicita();
+	}
+	
+	
+	public void desistirExclusao() {
+		selecionarAcaoExclusao();
+		alertaDesistir();
+		comecarEsperaImplicita( 3 );
+		terminarEsperaImplicita();
+	}
 }
