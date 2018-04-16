@@ -113,31 +113,41 @@ public class TasksPage extends BasePage {
 	}
 	
 	public String buscarSubjectNaTabela( String assunto ) {
-		comecarEsperaImplicita( 5 );
-		String registroTabela = retornarTexto( By.xpath( ".//a[contains(text(),'" + assunto + "')]" ));
-		terminarEsperaImplicita();
-		return registroTabela;
+		carregarTabela( By.xpath( ".//table[@class='list view table-responsive']" ) );
+		
+		esperarPelaPresencaDe( By.xpath( ".//a[contains(text(),'" + assunto + "')]" ) );
+		return retornarTexto( By.xpath( ".//a[contains(text(),'" + assunto + "')]" ) );
 	}
 	
+	
 	public void editarRegistroDaTabela( String xpathEditar ) {
-		esperarPelaPresencaDe( By.xpath( ".//table[@class='list view table-responsive']" ) );
+		carregarTabela( By.xpath( ".//table[@class='list view table-responsive']" ) );
+		
 		esperarElementoClicavel( By.xpath( xpathEditar ) );
 		selecionarAcaoNaTabela( By.xpath( xpathEditar ) );
 	}
 	
 	public void selecionarRegistroDaTabela( String xpathRegistro ) {
-		esperarPelaPresencaDe( By.xpath( ".//table[@class='list view table-responsive']" ) );
+		carregarTabela( By.xpath( ".//table[@class='list view table-responsive']" ) );
+		
+		esperarPelaPresencaDe( By.xpath( xpathRegistro ) );
+		esperarElementoClicavel( By.xpath( xpathRegistro ) );
 		clicarCheck( By.xpath( xpathRegistro ) );
-		terminarEsperaImplicita();
 	}
 	
 	public void excluirRegistroDaTabela() {
-		esperarPelaPresencaDe( By.xpath( ".//table[@class='list view table-responsive']" ) );
+		carregarTabela( By.xpath( ".//table[@class='list view table-responsive']" ) );
+		
 		esperarPelaPresencaDe( By.id( "actionLinkTop" ));
+		esperarElementoClicavel( By.id( "actionLinkTop" ));
+		
 		esperarPelaPresencaDe( By.id( "subnav ddopen" ));
+		esperarElementoClicavel( By.id( "subnav ddopen" ));
+		
 		esperarPelaPresencaDe( By.id( "delete_listview_top" ));
 		esperarElementoClicavel( By.id( "delete_listview_top" ) );
 		clicarNoLink( By.id( "delete_listview_top" ) );
+		
 		alertaAceitar();
 	}
 	

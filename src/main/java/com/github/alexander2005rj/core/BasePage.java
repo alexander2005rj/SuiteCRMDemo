@@ -113,10 +113,14 @@ public class BasePage {
 	
 	/******** Tabelas ********/
 	
+	public void carregarTabela( By by ) {
+		esperarPelaPresencaDe( by );
+		esperarElementoClicavel( by );
+	}
+	
 	public void selecionarAcaoNaTabela( By by ) {
 		createDriver().findElement( by ).click();		
 	}
-	
 	
 	/******** Checkboxes ********/
 	

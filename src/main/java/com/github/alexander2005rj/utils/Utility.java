@@ -3,12 +3,10 @@ package com.github.alexander2005rj.utils;
 public class Utility {
 	
 	
-	public static int sortearNumeroMenorQue(int valor) {
-		int number = ( (int) Math.random() * valor );
-		
-		if ( number == 0 ) number++;
-		
-		return number;
+	public static int sortearNumeroMenorQue( int valor ) {
+		int number =  ( (int) Math.random() ) * valor;
+						
+		return (number == 0) ? 1 : number;
 	}
 	
 	

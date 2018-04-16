@@ -7,6 +7,7 @@ import org.junit.Test;
 import com.github.alexander2005rj.core.BaseTest;
 import com.github.alexander2005rj.pages.MenuPage;
 import com.github.alexander2005rj.pages.TasksPage;
+import com.github.alexander2005rj.utils.Utility;
 
 
 public class TasksTest extends BaseTest {
@@ -16,7 +17,7 @@ public class TasksTest extends BaseTest {
 	
 	@Test
 	@Ignore // ==> Retirar o @Ignore!
-	public void testCadastrarTask() throws InterruptedException {
+	public void testCadastrarTask() {
 		menuPage.acessarTasks();
 		taskPage.createTask();
 						
@@ -43,7 +44,7 @@ public class TasksTest extends BaseTest {
 	
 	@Test
 	@Ignore // ==> Retirar o @Ignore!
-	public void testCamposObrigatorios() throws InterruptedException {
+	public void testCamposObrigatorios() {
 		menuPage.acessarTasks();
 		taskPage.createTask();
 		
@@ -59,7 +60,7 @@ public class TasksTest extends BaseTest {
 	
 	@Test
 	@Ignore // ==> Retirar o @Ignore!
-	public void testDatasComFormatoIncorreto() throws InterruptedException {
+	public void testDatasComFormatoIncorreto() {
 		menuPage.acessarTasks();
 		taskPage.createTask();
 		
@@ -82,7 +83,7 @@ public class TasksTest extends BaseTest {
 	
 	@Test
 	@Ignore // ==> Retirar o @Ignore!
-	public void testFecharECriarUmaNovaTask() throws InterruptedException {
+	public void testFecharECriarUmaNovaTask() {
 		menuPage.acessarTasks();
 		taskPage.createTask();
 		
@@ -96,6 +97,8 @@ public class TasksTest extends BaseTest {
 		
 		taskPage.closeAndCreateNew();
 		
+		System.out.println( assunto );
+		
 		// taskPage.viewTasks();
 		
 		// Assert.assertEquals( assunto, taskPage.buscarSubjectNaTabela( assunto ) ); 
@@ -104,7 +107,7 @@ public class TasksTest extends BaseTest {
 	
 	/*
 	@Test
-	public void testAlterarTask() throws InterruptedException {
+	public void testAlterarTask() {
 		menuPage.acessarTasks();
 				
 		// Selecionar linha da tabela para alteração 
@@ -114,12 +117,14 @@ public class TasksTest extends BaseTest {
 	*/
 	
 	@Test
-	public void testExcluirTask() throws InterruptedException {
+	public void testExcluirTask() {
 		menuPage.acessarTasks();
 		
-		taskPage.selecionarRegistroDaTabela( ".//tr[" + 7 + "]//input[@class='listview-checkbox']" );
+		int numAleatorio = Utility.sortearNumeroMenorQue( 21 );
 		
-		taskPage.excluirRegistroDaTabela();
+		taskPage.selecionarRegistroDaTabela( ".//tr[" + numAleatorio + "]//input[@class='listview-checkbox']" );
+		
+		// taskPage.excluirRegistroDaTabela();
 		
 		// Selecionar linha da tabela para alteração / exclusão
 		// .//tr[x]//input[@class='listview-checkbox']
@@ -128,16 +133,9 @@ public class TasksTest extends BaseTest {
 	}
 	
 	
-	/*
-	@Test 
-	public void testExcluirTasksPaginacao() throws InterruptedException {
-		menuPage.acessarTasks();
-		
-		
-	}
-	
+	/*	
 	@Test
-	public void testDesistirExclusao() throws InterruptedException {
+	public void testDesistirExclusao() {
 		menuPage.acessarTasks();
 		
 		
