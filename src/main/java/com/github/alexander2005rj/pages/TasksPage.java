@@ -132,7 +132,8 @@ public class TasksPage extends BasePage {
 	public String buscarInfoNaTabela( String info ) {
 		carregarTabela( By.xpath( ".//table[@class='list view table-responsive']" ) );
 		
-		esperarPelaPresencaDe( By.xpath( ".//a[contains(text(),'" + info + "')]" ) );
+		// esperarPelaPresencaDe( By.xpath( ".//a[contains(text(),'" + info + "')]" ) );
+		
 		return retornarTexto( By.xpath( ".//a[contains(text(),'" + info + "')]" ) );
 	}
 		
@@ -183,16 +184,12 @@ public class TasksPage extends BasePage {
 	
 	public void excluirRegistroDaTabela() {
 		selecionarAcaoExclusao();
-		comecarEsperaImplicita( 2 );
 		alertaAceitar();
-		terminarEsperaImplicita();
 	}
 	
 	
 	public void desistirExclusao() {
 		selecionarAcaoExclusao();
 		alertaDesistir();
-		comecarEsperaImplicita( 3 );
-		terminarEsperaImplicita();
 	}
 }

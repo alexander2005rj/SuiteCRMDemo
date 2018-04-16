@@ -96,7 +96,7 @@ public class TasksTest extends BaseTest {
 		
 		// taskPage.viewTasks();
 		
-		// Assert.assertEquals( assunto, taskPage.buscarSubjectNaTabela( assunto ) ); 
+		Assert.assertEquals( assunto, taskPage.buscarInfoNaTabela( assunto ) ); 
 		
 	}
 	
@@ -112,19 +112,15 @@ public class TasksTest extends BaseTest {
 	*/
 	
 	@Test
-	public void testExcluirTask() throws InterruptedException {
+	public void testExcluirTask() {
 		menuPage.acessarTasks();
-					
+		
 		List<String> listaContato = taskPage.selecionarRegistroDaTabela( Utility.sortearNumeroMenorQue( 21 )  );
 		String assunto = listaContato.get( 0 );
 		String contato = listaContato.get( 1 );
-		System.out.println( assunto + " - " + contato );
-		
+			
 		taskPage.excluirRegistroDaTabela();
-		
-		Thread.sleep( 1000 ); 
-		
-		System.out.println( taskPage.buscarInfoNaTabela( assunto ) + " === "  +  taskPage.buscarInfoNaTabela( contato ) );
+		Assert.assertNotEquals( contato + " - " + assunto, taskPage.buscarInfoNaTabela( contato )  + " - " + taskPage.buscarInfoNaTabela( assunto ) );
 	}
 	
 	
@@ -139,8 +135,7 @@ public class TasksTest extends BaseTest {
 		String contato = listaContato.get( 1 );
 		
 		taskPage.desistirExclusao();
-		Assert.assertEquals( assunto, taskPage.buscarInfoNaTabela( assunto ) );
-		Assert.assertEquals( contato , taskPage.buscarInfoNaTabela( contato ) );
+		Assert.assertEquals( contato + " - " + assunto, taskPage.buscarInfoNaTabela( contato )  + " - " + taskPage.buscarInfoNaTabela( assunto ) );
 	}
 	
 }

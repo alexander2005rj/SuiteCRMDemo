@@ -1,7 +1,7 @@
 package com.github.alexander2005rj.core;
 
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 
 
 public class DriverFactory {
@@ -14,7 +14,7 @@ public class DriverFactory {
 	
 	public static WebDriver createDriver() {
 		if ( driver == null ) {
-			driver = new FirefoxDriver();
+			driver = new ChromeDriver();
 			driver.manage().window().maximize();;
 		}
 		return driver;

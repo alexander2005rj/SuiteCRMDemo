@@ -6,6 +6,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
@@ -99,7 +100,14 @@ public class BasePage {
 	/******** Outros ********/
 	
 	public String retornarTexto( By by ) {
-		return createDriver().findElement( by ).getText();
+		String texto; 
+		
+		try {
+			texto = createDriver().findElement( by ).getText();
+		} catch ( NoSuchElementException e ) {
+			texto = "Sem texto!";
+		}
+		return texto;
 	}
 	
 	/******** Alertas ********/
