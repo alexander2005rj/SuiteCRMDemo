@@ -81,6 +81,7 @@ public class TasksTest extends BaseTest {
 	
 	
 	@Test
+	@Ignore // ==> Retirar o @Ignore!
 	public void testFecharECriarUmaNovaTask() throws InterruptedException {
 		menuPage.acessarTasks();
 		taskPage.createTask();
@@ -95,9 +96,9 @@ public class TasksTest extends BaseTest {
 		
 		taskPage.closeAndCreateNew();
 		
-		taskPage.viewTasks();
+		// taskPage.viewTasks();
 		
-		Assert.assertEquals( assunto, taskPage.buscarSubjectNaTabela( assunto ) ); 
+		// Assert.assertEquals( assunto, taskPage.buscarSubjectNaTabela( assunto ) ); 
 		
 	}
 	
@@ -105,25 +106,29 @@ public class TasksTest extends BaseTest {
 	@Test
 	public void testAlterarTask() throws InterruptedException {
 		menuPage.acessarTasks();
-		taskPage.viewTask();
-		
-		// Selecionar linha da tabela para alteração / exclusão
-		// .//tr[x]//input[@class='listview-checkbox']
+				
+		// Selecionar linha da tabela para alteração 
+		// .//tr[x]//span[@class='suitepicon suitepicon-action-edit']
 		
 	}
-	
+	*/
 	
 	@Test
 	public void testExcluirTask() throws InterruptedException {
 		menuPage.acessarTasks();
-		taskPage.viewTask();
-				
-			
+		
+		taskPage.selecionarRegistroDaTabela( ".//tr[" + 7 + "]//input[@class='listview-checkbox']" );
+		
+		taskPage.excluirRegistroDaTabela();
+		
 		// Selecionar linha da tabela para alteração / exclusão
 		// .//tr[x]//input[@class='listview-checkbox']
 		
+		
 	}
 	
+	
+	/*
 	@Test 
 	public void testExcluirTasksPaginacao() throws InterruptedException {
 		menuPage.acessarTasks();

@@ -12,7 +12,7 @@ public class MenuPage extends BasePage {
 		esperarPelaPresencaDe( By.id( "grouptab_3" ) );
 		clicarNoLinkPorId( "grouptab_3" );
 		
-		esperarPelaPresencaDe( By.id( "moduleTab_6_Tasks" ));
+		esperarPelaPresencaDe( By.id( "moduleTab_6_Tasks" ) );
 		clicarNoLinkPorId( "moduleTab_6_Tasks" );
 	}
 	

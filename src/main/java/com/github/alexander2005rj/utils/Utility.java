@@ -4,7 +4,11 @@ public class Utility {
 	
 	
 	public static int sortearNumeroMenorQue(int valor) {
-		return ( (int) Math.random() * valor );
+		int number = ( (int) Math.random() * valor );
+		
+		if ( number == 0 ) number++;
+		
+		return number;
 	}
 	
 	

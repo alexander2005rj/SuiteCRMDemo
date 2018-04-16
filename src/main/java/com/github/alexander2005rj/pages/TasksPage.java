@@ -114,11 +114,31 @@ public class TasksPage extends BasePage {
 	
 	public String buscarSubjectNaTabela( String assunto ) {
 		comecarEsperaImplicita( 5 );
-		return retornarTexto( By.xpath( ".//a[contains(text(),'" + assunto + "')]" ));
+		String registroTabela = retornarTexto( By.xpath( ".//a[contains(text(),'" + assunto + "')]" ));
+		terminarEsperaImplicita();
+		return registroTabela;
 	}
 	
-	public void selecionarRegistroNaTabela() {
-		
+	public void editarRegistroDaTabela( String xpathEditar ) {
+		esperarPelaPresencaDe( By.xpath( ".//table[@class='list view table-responsive']" ) );
+		esperarElementoClicavel( By.xpath( xpathEditar ) );
+		selecionarAcaoNaTabela( By.xpath( xpathEditar ) );
+	}
+	
+	public void selecionarRegistroDaTabela( String xpathRegistro ) {
+		esperarPelaPresencaDe( By.xpath( ".//table[@class='list view table-responsive']" ) );
+		clicarCheck( By.xpath( xpathRegistro ) );
+		terminarEsperaImplicita();
+	}
+	
+	public void excluirRegistroDaTabela() {
+		esperarPelaPresencaDe( By.xpath( ".//table[@class='list view table-responsive']" ) );
+		esperarPelaPresencaDe( By.id( "actionLinkTop" ));
+		esperarPelaPresencaDe( By.id( "subnav ddopen" ));
+		esperarPelaPresencaDe( By.id( "delete_listview_top" ));
+		esperarElementoClicavel( By.id( "delete_listview_top" ) );
+		clicarNoLink( By.id( "delete_listview_top" ) );
+		alertaAceitar();
 	}
 	
 }
