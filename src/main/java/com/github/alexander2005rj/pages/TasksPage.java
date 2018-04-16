@@ -8,19 +8,26 @@ import com.github.alexander2005rj.core.BasePage;
 public class TasksPage extends BasePage {
 	
 	public void createTask() {
-		esperarPelaPresençaDe( By.xpath( ".//a[@data-action-name='Create']" ) );
+		esperarPelaPresencaDe( By.xpath( ".//a[@data-action-name='Create']" ) );
+		// comecarEsperaImplicita( 5 );
 		clicarNoLink( By.xpath( ".//a[@data-action-name='Create']" ) );
+		//terminarEsperaImplicita();
 	}
 	
 	public void viewTasks() {
-		esperarPelaPresençaDe( By.xpath( ".//a[@data-action-name='List']" ) );
+		esperarPelaPresencaDe( By.xpath( ".//a[@data-action-name='List']" ) );
+		// comecarEsperaImplicita( 5 );
 		clicarNoLink( By.xpath( ".//a[@data-action-name='List']" ) );
+		// terminarEsperaImplicita();
 	}
 	
-	public String setSubject( String assunto ) {
-		esperarPelaPresençaDe( By.id( "name" ));
+	public void setSubject( String assunto ) {
+		esperarPelaPresencaDe( By.id( "name" ));
 		inserir( "name", assunto );
-		return assunto;
+	}
+	
+	public String getSubject() {
+		return obterValorCampo( "name" );
 	}
 		
 	public void setStartDate( String dataInicio, String hora, String minutos ) {
@@ -81,18 +88,18 @@ public class TasksPage extends BasePage {
 	}
 	
 	public void save() {
-		esperarPelaPresençaDe( By.id( "SAVE" ));
+		esperarPelaPresencaDe( By.id( "SAVE" ));
 		clicarNoBotao( "SAVE" );
 	}
 	
 	public void cancel() {
-		esperarPelaPresençaDe( By.id( "CANCEL" ) );
+		esperarPelaPresencaDe( By.id( "CANCEL" ) );
 		clicarNoBotao( "CANCEL" );
 		alertaAceitar();
 	}
 	
 	public void closeAndCreateNew() {
-		esperarPelaPresençaDe( By.xpath( "//input[@title='Close and Create New']" ) );
+		esperarPelaPresencaDe( By.xpath( "//input[@title='Close and Create New']" ) );
 		clicarNoBotao( By.xpath( "//input[@title='Close and Create New']" ) );
 	}
 	
@@ -104,4 +111,14 @@ public class TasksPage extends BasePage {
 	public String obterMensagemDeErro( String xpathMensagem ) {
 		return retornarTexto( By.xpath( xpathMensagem ) );
 	}
+	
+	public String buscarSubjectNaTabela( String assunto ) {
+		comecarEsperaImplicita( 5 );
+		return retornarTexto( By.xpath( ".//a[contains(text(),'" + assunto + "')]" ));
+	}
+	
+	public void selecionarRegistroNaTabela() {
+		
+	}
+	
 }

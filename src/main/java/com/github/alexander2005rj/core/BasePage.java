@@ -29,6 +29,10 @@ public class BasePage {
 		createDriver().findElement( By.id( id_campo ) ).sendKeys( texto );;
 	}
 	
+	public String obterValorCampo(String id_campo) {
+		return createDriver().findElement( By.id(id_campo) ).getAttribute("value");
+	}
+	
 	
 	/******** Botões ********/
 	
@@ -81,7 +85,7 @@ public class BasePage {
 		createDriver().manage().timeouts().implicitlyWait( 0, TimeUnit.SECONDS );
 	}
 	
-	public void esperarPelaPresençaDe(By by) {
+	public void esperarPelaPresencaDe(By by) {
 		WebDriverWait wait = new WebDriverWait( createDriver(), 5 );
 		wait.until( ExpectedConditions.presenceOfElementLocated( by ));
 	}

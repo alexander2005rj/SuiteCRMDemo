@@ -20,13 +20,13 @@ public class TasksTest extends BaseTest {
 		menuPage.acessarTasks();
 		taskPage.createTask();
 						
-		String assunto = taskPage.setSubject( "Teste de Cadastro de Task" );
+		taskPage.setSubject( "Teste de Cadastro de Task" );
 		
-		// taskPage.setStartDate( "04/14/2018" , "07", "45", "pm" );
-		taskPage.setStartDate( "2018-04-14" , "17", "45" );
+		taskPage.setStartDate( "04/14/2018" , "07", "45", "pm" );
+		//taskPage.setStartDate( "2018-04-14" , "17", "45" );
 		
-		// taskPage.setDueDate( "04/17/2018", "03", "00", "am" );
-		taskPage.setDueDate( "2018-08-28", "03", "00" );
+		taskPage.setDueDate( "04/17/2018", "03", "00", "am" );
+		// taskPage.setDueDate( "2018-08-28", "03", "00" );
 		
 		taskPage.setPriority( "Low" );
 		taskPage.setDescription( "Apenas criando uma task para teste..." );
@@ -36,8 +36,8 @@ public class TasksTest extends BaseTest {
 		taskPage.setAssignedTo( "Max Jensen" );
 		
 		taskPage.save();
-		
-		Assert.assertEquals( taskPage.obterTextoTaskCadastrada(), assunto.toUpperCase() );
+				
+		Assert.assertEquals( taskPage.obterTextoTaskCadastrada(), taskPage.getSubject().toUpperCase() );
 	}
 	
 	
@@ -85,6 +85,19 @@ public class TasksTest extends BaseTest {
 		menuPage.acessarTasks();
 		taskPage.createTask();
 		
+		taskPage.setSubject( "Criando task, fechando e criando uma nova" );
+		String assunto = taskPage.getSubject();
+		
+		taskPage.setDescription( "Sem comentários por agora..." );
+		taskPage.setRelatedTo( "Bug", "First National S/B" );
+		taskPage.setContactName( "Mary Belle" );
+		taskPage.setAssignedTo( "Chris Olliver" );
+		
+		taskPage.closeAndCreateNew();
+		
+		taskPage.viewTasks();
+		
+		Assert.assertEquals( assunto, taskPage.buscarSubjectNaTabela( assunto ) ); 
 		
 	}
 	
