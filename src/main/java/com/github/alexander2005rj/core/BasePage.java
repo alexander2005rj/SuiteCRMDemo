@@ -26,7 +26,7 @@ public class BasePage {
 	/******** Inputs e Textareas ********/
 	
 	public void inserir( String id_campo, String texto ) {
-		//createDriver().findElement( By.id( id_campo ) ).clear();
+		createDriver().findElement( By.id( id_campo ) ).clear();
 		createDriver().findElement( By.id( id_campo ) ).sendKeys( texto );;
 	}
 	

@@ -10,6 +10,7 @@ import com.github.alexander2005rj.core.BaseTest;
 import com.github.alexander2005rj.pages.MenuPage;
 import com.github.alexander2005rj.pages.TasksPage;
 import com.github.alexander2005rj.utils.Utility;
+import com.github.javafaker.Faker;
 
 
 public class TasksTest extends BaseTest {
@@ -96,22 +97,41 @@ public class TasksTest extends BaseTest {
 		
 		// taskPage.viewTasks();
 		
-		Assert.assertEquals( assunto, taskPage.buscarInfoNaTabela( assunto ) ); 
+		Assert.assertEquals( taskPage.getSubject(), taskPage.buscarInfoNaTabela( assunto ) ); 
 		
 	}
 	
-	/*
+	
 	@Test
 	public void testAlterarTask() {
 		menuPage.acessarTasks();
-				
-		// Selecionar linha da tabela para alteração 
-		// .//tr[x]//span[@class='suitepicon suitepicon-action-edit']
 		
+		taskPage.editarTask( Utility.sortearNumeroMenorQue( 21 ) );
+		String antigoTitulo = taskPage.getSubject();
+		String antigoStatus = taskPage.getStatus();
+		String antigaPrioridade = taskPage.getPriority();
+		
+		Faker faker = new Faker();
+		
+		taskPage.setSubject( faker.chuckNorris().fact()  );
+		String novoTitulo = taskPage.getSubject();
+		
+		taskPage.setStatus( "Deferred" );
+		String novoStatus = taskPage.getStatus();
+		
+		taskPage.setPriority( "Low" );
+		String novaPrioridade = taskPage.getPriority();
+		
+		taskPage.save();
+		
+		Assert.assertNotEquals( antigoTitulo, novoTitulo );
+		// Assert.assertNotEquals( antigoStatus, novoStatus );
+		// Assert.assertNotEquals( antigaPrioridade, novaPrioridade );
 	}
-	*/
+	
 	
 	@Test
+	@Ignore // ==> Retirar o @Ignore!
 	public void testExcluirTask() {
 		menuPage.acessarTasks();
 		

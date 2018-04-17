@@ -70,12 +70,21 @@ public class TasksPage extends BasePage {
 		selecionarOpcao( "priority", prioridade );	
 	}
 	
+	public String getPriority() {
+		return obterValorCampo( "priority" );
+	}
+	
+	
 	public void setDescription( String descricao ) {
 		inserir( "description" , descricao );
 	}
 	
 	public void setStatus( String status ) {
 		selecionarOpcao( "status", status );
+	}
+	
+	public String getStatus() {
+		return obterValorCampo( "status" );
 	}
 	
 	public void setRelatedTo( String tipo, String nome ) {
@@ -181,7 +190,7 @@ public class TasksPage extends BasePage {
 		esperarElementoClicavel( By.xpath( ".//a[.='Delete']" ) );
 		clicarNoLink( By.xpath( ".//a[.='Delete']" ) );
 	}
-	
+		
 	public void excluirRegistroDaTabela() {
 		selecionarAcaoExclusao();
 		alertaAceitar();
@@ -192,4 +201,17 @@ public class TasksPage extends BasePage {
 		selecionarAcaoExclusao();
 		alertaDesistir();
 	}
+	
+	public void editarTask( int numAleatorio ) {
+		carregarTabela( By.xpath( ".//table[@class='list view table-responsive']" ) );
+		
+		esperarPelaPresencaDe( By.xpath( ".//tr[" + numAleatorio + "]//span[@class='suitepicon suitepicon-action-edit']" ) );
+		esperarElementoClicavel( By.xpath( ".//tr[" + numAleatorio + "]//span[@class='suitepicon suitepicon-action-edit']" ) );
+		clicarNoLink( By.xpath( ".//tr[" + numAleatorio + "]//span[@class='suitepicon suitepicon-action-edit']" ) );
+		
+	}
+
+	
+
+	
 }
