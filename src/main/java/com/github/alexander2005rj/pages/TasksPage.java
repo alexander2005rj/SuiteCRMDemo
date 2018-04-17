@@ -6,6 +6,7 @@ import java.util.List;
 import org.openqa.selenium.By;
 
 import com.github.alexander2005rj.core.BasePage;
+import com.github.alexander2005rj.utils.Utility;
 
 
 public class TasksPage extends BasePage {
@@ -70,10 +71,18 @@ public class TasksPage extends BasePage {
 		selecionarOpcao( "priority", prioridade );	
 	}
 	
+	public void setPriority() {
+		int size = tamanhoDaCombo( "priority" );
+		selecionarOpcaoPorIndex( "priority", Utility.sortearIndexMenorQue( size ) );		
+	}
+	
 	public String getPriority() {
 		return obterValorCampo( "priority" );
 	}
 	
+	public int numeroOpcoesPriority() {
+		return tamanhoDaCombo( "priority" );
+	}
 	
 	public void setDescription( String descricao ) {
 		inserir( "description" , descricao );
@@ -83,24 +92,29 @@ public class TasksPage extends BasePage {
 		selecionarOpcao( "status", status );
 	}
 	
+	public void setStatus() {
+		int size = tamanhoDaCombo( "status" );
+		selecionarOpcaoPorIndex( "status", Utility.sortearIndexMenorQue( size ) );	
+	}
+	
 	public String getStatus() {
 		return obterValorCampo( "status" );
 	}
 	
+	public int numeroOpcoesStatus() {
+		return tamanhoDaCombo( "status" );
+	}
+	
 	public void setRelatedTo( String tipo, String nome ) {
 		selecionarOpcao( "parent_type", tipo );
-		
-		// Melhorar a busca por nome
 		inserir( "parent_name", nome );
 	}
 	
 	public void setContactName( String nomeDoContato ) {
-		// Melhorar a busca por nome
 		inserir( "contact_name", nomeDoContato );
 	}
 	
 	public void setAssignedTo( String pessoaResponsavel ) {
-		// Melhorar a busca por nome
 		inserir( "assigned_user_name", pessoaResponsavel );
 	}
 	

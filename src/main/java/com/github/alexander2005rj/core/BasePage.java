@@ -2,6 +2,7 @@ package com.github.alexander2005rj.core;
 
 import static com.github.alexander2005rj.core.DriverFactory.createDriver;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.Alert;
@@ -30,8 +31,12 @@ public class BasePage {
 		createDriver().findElement( By.id( id_campo ) ).sendKeys( texto );;
 	}
 	
-	public String obterValorCampo(String id_campo) {
+	public String obterValorCampo( String id_campo ) {
 		return createDriver().findElement( By.id(id_campo) ).getAttribute("value");
+	}
+	
+	public String obterTexto( String id_campo ) {
+		return createDriver().findElement( By.id(id_campo) ).getText();
 	}
 	
 	
@@ -63,10 +68,24 @@ public class BasePage {
 	
 	/******** Combos ********/
 	
+	public WebElement retornaElementoCombo( By by ) {
+		return createDriver().findElement( by );
+	}
+	
 	public void selecionarOpcao( String id_combo, String valorCombo ) {
-		WebElement element = createDriver().findElement( By.id( id_combo ) );
-		Select combo = new Select( element );
+		Select combo = new Select( retornaElementoCombo( By.id( id_combo ) ) );
 		combo.selectByVisibleText( valorCombo );
+	}
+	
+	public void selecionarOpcaoPorIndex( String id_combo, int index ) {
+		Select combo = new Select( retornaElementoCombo( By.id( id_combo ) ) );
+		combo.selectByIndex( index );
+	}
+	
+	public int tamanhoDaCombo( String id_combo ) {
+		Select combo = new Select( retornaElementoCombo( By.id( id_combo ) ) );
+		List<WebElement> elementCount = combo.getOptions();
+		return elementCount.size();
 	}
 	
 	public void desmarcarOpcao( String id_combo, String valorCombo ) {

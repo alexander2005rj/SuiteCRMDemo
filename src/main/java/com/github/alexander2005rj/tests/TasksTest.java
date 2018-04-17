@@ -3,7 +3,6 @@ package com.github.alexander2005rj.tests;
 import java.util.List;
 
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import com.github.alexander2005rj.core.BaseTest;
@@ -17,14 +16,15 @@ public class TasksTest extends BaseTest {
 	
 	private MenuPage menuPage = new MenuPage();
 	private TasksPage taskPage = new TasksPage();
+	private Faker faker = new Faker();
 	
 	@Test
-	@Ignore // ==> Retirar o @Ignore!
 	public void testCadastrarTask() {
 		menuPage.acessarTasks();
 		taskPage.createTask();
 						
-		taskPage.setSubject( "Teste de Cadastro de Task" );
+		taskPage.setSubject( faker.lorem().sentence() );
+		String assunto = taskPage.getSubject();
 		
 		taskPage.setStartDate( "04/14/2018" , "07", "45", "pm" );
 		//taskPage.setStartDate( "2018-04-14" , "17", "45" );
@@ -32,21 +32,21 @@ public class TasksTest extends BaseTest {
 		taskPage.setDueDate( "04/17/2018", "03", "00", "am" );
 		// taskPage.setDueDate( "2018-08-28", "03", "00" );
 		
-		taskPage.setPriority( "Low" );
-		taskPage.setDescription( "Apenas criando uma task para teste..." );
-		taskPage.setStatus( "In Progress" );
 		taskPage.setRelatedTo( "Task", "White Cross Co" );
 		taskPage.setContactName( "William Darcy" );
 		taskPage.setAssignedTo( "Max Jensen" );
 		
+		taskPage.setPriority();
+		taskPage.setDescription( faker.lorem().paragraph() );
+		taskPage.setStatus();
+		
 		taskPage.save();
-				
-		Assert.assertEquals( taskPage.obterTextoTaskCadastrada(), taskPage.getSubject().toUpperCase() );
+		
+		Assert.assertEquals( taskPage.obterTextoTaskCadastrada(), assunto.toUpperCase() );
 	}
 	
 	
 	@Test
-	@Ignore // ==> Retirar o @Ignore!
 	public void testCamposObrigatorios() {
 		menuPage.acessarTasks();
 		taskPage.createTask();
@@ -60,7 +60,6 @@ public class TasksTest extends BaseTest {
 	
 	
 	@Test
-	@Ignore // ==> Retirar o @Ignore!
 	public void testDatasComFormatoIncorreto() {
 		menuPage.acessarTasks();
 		taskPage.createTask();
@@ -80,25 +79,23 @@ public class TasksTest extends BaseTest {
 	
 	
 	@Test
-	@Ignore // ==> Retirar o @Ignore!
 	public void testFecharECriarUmaNovaTask() {
 		menuPage.acessarTasks();
 		taskPage.createTask();
 		
-		taskPage.setSubject( "Criando task, fechando e criando uma nova" );
+		taskPage.setSubject( faker.lorem().sentence() );
 		String assunto = taskPage.getSubject();
 		
-		taskPage.setDescription( "Sem comentários por agora..." );
+		taskPage.setDescription( faker.lorem().paragraph() );
 		taskPage.setRelatedTo( "Bug", "First National S/B" );
 		taskPage.setContactName( "Mary Belle" );
 		taskPage.setAssignedTo( "Chris Olliver" );
 		
 		taskPage.closeAndCreateNew();
 		
-		// taskPage.viewTasks();
+		taskPage.viewTasks();
 		
-		Assert.assertEquals( taskPage.getSubject(), taskPage.buscarInfoNaTabela( assunto ) ); 
-		
+		Assert.assertEquals( assunto, taskPage.buscarInfoNaTabela( assunto ) ); 
 	}
 	
 	
@@ -111,27 +108,25 @@ public class TasksTest extends BaseTest {
 		String antigoStatus = taskPage.getStatus();
 		String antigaPrioridade = taskPage.getPriority();
 		
-		Faker faker = new Faker();
-		
+		 
 		taskPage.setSubject( faker.chuckNorris().fact()  );
 		String novoTitulo = taskPage.getSubject();
 		
-		taskPage.setStatus( "Deferred" );
+		taskPage.setStatus();
 		String novoStatus = taskPage.getStatus();
 		
-		taskPage.setPriority( "Low" );
+		taskPage.setPriority();
 		String novaPrioridade = taskPage.getPriority();
 		
 		taskPage.save();
 		
 		Assert.assertNotEquals( antigoTitulo, novoTitulo );
-		// Assert.assertNotEquals( antigoStatus, novoStatus );
-		// Assert.assertNotEquals( antigaPrioridade, novaPrioridade );
+		Assert.assertNotEquals( antigoStatus, novoStatus );
+		Assert.assertNotEquals( antigaPrioridade, novaPrioridade );
 	}
 	
 	
 	@Test
-	@Ignore // ==> Retirar o @Ignore!
 	public void testExcluirTask() {
 		menuPage.acessarTasks();
 		
@@ -146,7 +141,6 @@ public class TasksTest extends BaseTest {
 	
 		
 	@Test
-	@Ignore // ==> Retirar o @Ignore!
 	public void testDesistirExclusao() {
 		menuPage.acessarTasks();
 					

@@ -10,4 +10,8 @@ public class Utility {
 	}
 	
 	
+	public static int sortearIndexMenorQue( int index ) {
+		return (int) ( Math.random()  * index );
+	}
+	
 }
